@@ -1,0 +1,58 @@
+<html>
+  <body>
+    <div id="app"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const step = 1 // change this to see different results
+
+      function Content() {
+        const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton']
+        // if you don't provide a key, React will warn you with the following message:
+        // 'Each child in a list should have a unique "key" prop.'
+        if (step === 1) {
+          return (
+            <ul>
+              {names.map((name) => (
+                <li>{name}</li>
+              ))}
+            </ul>
+          )
+        }
+
+        // Q: how does it know that a child is part of a list?
+        // A: look at `React.createElement(tag, props, child1, child2, child3, ...)` signature
+        // it accepts a variable number of children;
+        // names.map() expression produces an array of React elements which is
+        // passed to the ul element as a single child instead of several children.
+        // it's similar to passing child1 = an array, and no child2, child3, ...
+        // to make it clear, the following code will also show key warning
+        if (step == 2) {
+          const listItems = names.map((name) => <li>{name}</li>)
+          return (
+            <ul>
+              {[<li>{names[0]}</li>, <li>{names[1]}</li>, <li>{names[2]}</li>]}
+            </ul>
+          )
+        }
+
+        // on the other hand, if you pass each child as a separate argument,
+        // React will not warn you about missing keys even though it looks like a list and
+        // produces exactly same DOM structure as the previous example;
+        // this is similar to calling `React.createElement(tag, props, child1, child2, child3)`:
+        if (step === 3) {
+          return (
+            <ul>
+              <li>{names[0]}</li>
+              <li>{names[1]}</li>
+              <li>{names[2]}</li>
+            </ul>
+          )
+        }
+      }
+
+      ReactDOM.render(<Content />, app)
+    </script>
+  </body>
+</html>
