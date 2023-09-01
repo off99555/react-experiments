@@ -21,12 +21,12 @@
           )
         }
 
-        // Q: how does it know that a child is part of a list?
+        // Q: how does it know that <li> is part of a list?
         // A: look at `React.createElement(tag, props, child1, child2, child3, ...)` signature
         // it accepts a variable number of children;
         // names.map() expression produces an array of React elements which is
         // passed to the ul element as a single child instead of several children.
-        // it's similar to passing child1 = an array, and no child2, child3, ...
+        // it's similar to passing child1 = an array, no child2, no child3, ...
         // to make it clear, the following code will also show key warning
         if (step === 2) {
           const listItems = names.map((name) => <li>{name}</li>)
@@ -52,6 +52,7 @@
         }
       }
 
+      const app = document.getElementById('app')
       ReactDOM.render(<Component />, app)
     </script>
   </body>
